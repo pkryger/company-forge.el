@@ -965,7 +965,7 @@ repositories (for example when pulling individual topics).  Use
                           #'company-forge-extra-mentions-fetch-init-p
                           company-forge-extra-mentions)))
           (funcall init-function repo)))
-    (error "No tracked forge repository")))
+    (error "No tracked forge repository for buffer %s" (current-buffer))))
 
 (defun company-forge--add-text-icons-mapping (icons-mapping)
   "Add mappings from `company-forge-text-icons-mapping' to ICONS-MAPPING."
