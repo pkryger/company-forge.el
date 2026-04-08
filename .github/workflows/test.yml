@@ -66,6 +66,7 @@ jobs:
     - name: 'Lint: checkdoc'
       run: 'make checkdoc'
     - name: 'Lint: commentary'
+      if: ${{ ! startsWith(matrix.emacs_version, '29.') }}
       run: 'make commentary'
     - name: 'Lint: checktoc'
       run: 'make checktoc'
