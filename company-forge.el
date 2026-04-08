@@ -807,13 +807,17 @@ neither of  elements has a name."
       (let* ((pred (lambda (e)
                      (string= head e)))
              (cleanup t)
+             (member-if-func (with-suppressed-warnings ((obsolete cl-member-if))
+                               (if (fboundp 'member-if)
+                                   #'member-if ;; Since Emacs-31
+                                 #'cl-member-if)))
              (dup (unless (get-text-property 0 'company-forge-annotation head)
                     (setq cleanup
-                          (cl-member-if pred tail)))))
+                          (funcall member-if-func pred tail)))))
         (while (and dup
                     (null (get-text-property 0 'company-forge-annotation head)))
           (setq head (car dup)
-                dup (cl-member-if pred (cdr dup))))
+                dup (funcall member-if-func pred (cdr dup))))
         (when cleanup
           (setq tail (cl-remove-if pred tail))))
       (push head res)
